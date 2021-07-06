@@ -30,6 +30,6 @@
 
 ## 夜イベント
 
-### ラッシュ
+### [ラッシュ](event/rush)
 
 ### [キンシャケ探し](event/goldieseeking)
