@@ -247,7 +247,7 @@ private func getEnemyAppearId(random: UInt32, lastAppearId: UInt8) -> UInt8 {
 
 ### シェケナダム
 
-![](https://pbs.twimg.com/media/FDhs2wxaQAE-ISF?format=png)
+![](https://pbs.twimg.com/media/FDkP-C7aQAAwp8I?format=png)
 
 ### 難破船ドン・ブラコ
 
