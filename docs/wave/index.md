@@ -194,61 +194,73 @@ PRNG に偏りがないのであれば 10 個ドロップする確率は約 33.3
 
 湧き方向 1 は 100%二連続しないことが解析からわかっています。
 
-ちなみに、湧き方向変化計算アルゴリズムは以下の通り。
+ちなみに、湧き方向変化計算アルゴリズムの Swift コードは以下の通り。
 
-```python
-def getEnemyAppearId(self, random, id):  # 湧き方向を計算する関数
-    mArray = [1, 2, 3]
-    mIndex = 0  # ポインタっぽい役割をするためのインデックス
-    w6 = 3
-    x6 = 3
-    v5 = id
-    w7 = mArray
-    if not (id & 0x80000000):
-        w8 = w6 - 1
-        while True:
-            v17 = w8
-            w9 = w7[mIndex]
-            if w9 < id:
-                break
-            w6 -= w9 == id
-            if w9 == id:
-                break
-            w8 = v17 - 1
-            mIndex += 1
-            if not v17:
-                break
+::: tip 湧き方向アルゴリズムについて
 
-    mIndex = 0
-    x7 = mArray
-    x8 = 0xFFFFFFFF & (random * w6 >> 0x20)  # 乱数を消費して湧き方向を計算
+ようやく重い腰を上げて完全解析に挑みました。
 
-    while True:
-        x9 = x7[mIndex]
-        x10 = 0 if x8 == 0 else x8 - 1
-        x11 = x9 if x8 == 0 else v5
-        x12 = 5 if x9 == v5 else x8 == 0
-        if x9 != v5:
-            x8 = 0xFFFFFFFF & x10
-            id = x11
-        if (x12 & 7) != 5 and (x12 & 7):
-            break
-        x6 -= 1
-        mIndex += 1
-        if not x6:
-            return v5
-    return id
+:::
+
+```swift
+private func getEnemyAppearId(random: UInt32, lastAppearId: UInt8) -> UInt8 {
+    let w6 = lastAppearId == 1 ? 2 : 3
+    let x8 = UInt8((UInt64(random) &* UInt64(w6)) >> 0x20)
+    switch lastAppearId {
+        case 0, 3:
+        	return x8 + 1
+        case 1:
+        	return x8 + 2
+        case 2:
+        switch x8 {
+            case 0:
+            	return 1
+            case 1:
+            	return 3
+            case 2:
+            	return 2
+            default:
+            	return 0
+        }
+        default:
+        	return 0
+    }
+}
 ```
 
-### 湧き方向確率
+### [湧き方向確率](https://tkgstrator.work/posts/2021/11/06/enemyappear.html)
 
-連続しないことから、それぞれの湧き方向になる確率に差が生じています。全通りを調べるのは困難だったので 1000 万通りについて調べました。
+| 湧き方向 |      1      |      2       |      3       |
+| :------: | :---------: | :----------: | :----------: |
+|   初手   | 2/9(0.2222) | 7/18(0.3888) | 7/18(0.3888) |
+|   全体   |  1/4(0.25)  |  3/8(0.375)  |  3/8(0.375)  |
 
-|  湧き方向  |   1    |   2    |   3    |
-| :--------: | :----: | :----: | :----: |
-|   一回目   | 22.52% | 38.74% | 38.74% |
-| 二回目以降 | 24.90% | 34.55% | 37.55% |
+## 各ステージの湧き方向
 
-このことから 1 湧きだけが確率が低いことがわかります。よって、一回目の湧き方向としては 2 と 3 を注目しておくと良いでしょう。
+全て覚える必要はありませんが、どの方向は二連続しないかは覚えておくと良いでしょう。
 
-### 各ステージの湧き方向
+| 湧き方向 | 色  |
+| :------: | :-: |
+|  1 湧き  | 緑  |
+|  2 湧き  | 赤  |
+|  3 湧き  | 青  |
+
+### シェケナダム
+
+![](https://pbs.twimg.com/media/FDhs2wxaQAE-ISF?format=png)
+
+### 難破船ドン・ブラコ
+
+![](https://pbs.twimg.com/media/FDhs2wyacAA1ZSL?format=png)
+
+### 海上集落シャケト場
+
+![](https://pbs.twimg.com/media/FDhs4E7aMAAm9Uy?format=png)
+
+### トキシラズいぶし工房
+
+![](https://pbs.twimg.com/media/FDhs2w4aMAAy6Qf?format=png)
+
+### 朽ちた箱舟 ポラリス
+
+![](https://pbs.twimg.com/media/FDhs2wvagAAHQI1?format=png)

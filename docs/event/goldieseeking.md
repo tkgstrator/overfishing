@@ -164,3 +164,27 @@ WAVE1 の満潮でキンシャケ探しにおける各ステージでの初手�
   - D 大なら C を省略して E
 - 朽ちた箱舟・ポラリス
   - G 小なら D を省略して F
+
+## カンケツセン内部 ID 表
+
+Salmon learn などとはマッピングが異なるので注意してください。
+
+### シェケナダム
+
+![](https://pbs.twimg.com/media/FDh_VGxaMAA3rj3?format=png)
+
+### 難破船ドン・ブラコ
+
+<!-- ![](https://pbs.twimg.com/media/FDhs2wyacAA1ZSL?format=png) -->
+
+### 海上集落シャケト場
+
+![](https://pbs.twimg.com/media/FDh_VGxaIAAgbu4?format=png)
+
+### トキシラズいぶし工房
+
+![](https://pbs.twimg.com/media/FDh_VGyagAAl8s2?format=png)
+
+### 朽ちた箱舟 ポラリス
+
+![](https://pbs.twimg.com/media/FDh_VGyaMAAWduY?format=png)
